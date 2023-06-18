@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Bar Example</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Advait Discuss</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">File Upload</h5>
+                        <form action="/files/" method="post" enctype="multipart/form-data">
+                            <input type="file" name="file">
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Chatbot Interface</h5>
+                        <div class="chat-container" id="chatContainer"></div>
+                        <div class="input-container">
+                            <input type="text" id="userInput" placeholder="Type a message..." class="form-control">
+                            <button type="button" id="sendButton" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Train the Document</h5>
+                        <button type="button" id="customButton" class="btn btn-primary">Train Doc</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Fourth Box</h5>
+                        <!-- Add content for the fourth box here -->
+                        <a class="nav-link" href="{{ url_for('gpt') }}">GPT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for handling chatbot interactions
+        const chatContainer = document.getElementById("chatContainer");
+        const userInput = document.getElementById("userInput");
+        const sendButton = document.getElementById("sendButton");
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement("p");
+            messageElement.classList.add(sender === "user" ? "user-message" : "bot-message");
+            messageElement.textContent = `${sender}: ${message}`;
+            chatContainer.appendChild(messageElement);
+        }
+
+        function processUserInput() {
+            const userMessage = userInput.value;
+            appendMessage(userMessage, "user");
+
+            // Send the user message to the backend for processing
+            fetch("/chatbot", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: userMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const botMessage = data.message;
+                appendMessage(botMessage, "bot");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
+            // Clear the user input field
+            userInput.value = "";
+        }
+
+        sendButton.addEventListener("click", processUserInput);
+        userInput.addEventListener("keypress", event => {
+            if (event.key === "Enter") {
+                processUserInput();
+            }
+        });
+
+        // Button click event handler
+        const customButton = document.getElementById("customButton");
+        customButton.addEventListener("click", () => {
+            fetch("/train-function", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({}) // Pass any data needed by the function in the body
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>
