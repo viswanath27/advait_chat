@@ -1,10 +1,208 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
+
+<div class="container">
+
     <h1>GPT Discussion</h1>
 
-    <p>
-        Below is the open AI Architecture which has important components which helps us create the bot which can be trained 
-    </p>
+    <h2> Table of contents</h2>
+    <ul>
+        <li><a href="#slide1">Architecture</a></li>
+        <li><a href="#slide2">Document Loading</a></li>
+        <li><a href="#slide3">Document Chunking</a></li>
+        <li><a href="#slide4">OpenAI Embeddings</a></li>
+        <li><a href="#slide5">PineCone</a></li>
+        <li><a href="#slide6">LLM</a></li>
+
+    </ul>
+
 </div>
+<br>
+<br>
+
+<div id="slide1" class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="align-right">Slide 1</h6>
+            <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                        src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            <h5 class="card-title">SYSTEM ARCHITECTURE</h5>
+            <p class="card-text">Below is the open AI Architecture which has important components which helps us create
+                the bot which can be
+                trained</p>
+            <p>
+                <img src="{{ url_for('static', filename='images/architecture.png') }}">
+            </p>
+            <a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                    style="width: 2%; height: auto;"></a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div id="slide2" class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="align-right">Slide 2</h6>
+            <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                        src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            <h5 class="card-title">DCOUMENT LOADING</h5>
+            <p class="card-text">Document loading is discussed in detail in this section</p>
+            <pre class="language-python"><code>
+            #Load your data
+                loader = UnstructuredPDFLoader("field-guide-to-data-science.pdf")
+                print("Done with loading the pdf file...")
+
+                data = loader.load()
+
+          </code>
+        </pre>
+            <p>
+                <img src="{{ url_for('static', filename='images/architecture.png') }}">
+            </p>
+            <a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                    style="width: 2%; height: auto;"></a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div id="slide3" class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="align-right">Slide 3</h6>
+            <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                        src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            <h5 class="card-title">DCOUMENT LOADING</h5>
+            <p class="card-text">Document loading is discussed in detail in this section</p>
+            <pre class="language-python"><code>
+                # Chunk your data up into smaller documents 
+                text_spliter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap=0)
+                texts = text_spliter.split_documents(data)
+
+          </code>
+        </pre>
+            <p>
+                <img src="{{ url_for('static', filename='images/architecture.png') }}">
+            </p>
+            <a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                    style="width: 2%; height: auto;"></a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div id="slide4" class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="align-right">Slide 4</h6>
+            <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                        src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            <h5 class="card-title">DCOUMENT LOADING</h5>
+            <p class="card-text">Document loading is discussed in detail in this section</p>
+            <pre class="language-python"><code>
+                #Create Embeddings of your documents to get ready for semantic search 
+                from langchain.vectorstores import Chroma, Pinecone
+                from langchain.embeddings.openai import OpenAIEmbeddings 
+                import pinecone 
+                
+                OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
+                PINECONE_API_KEY = os.environ.get('PINECONE_API_KEY', '0b0244fc-fee8-43c0-8f6a-ec6bad3b2dcc')
+                PINECONE_API_ENV = os.environ.get('PINECONE_API_ENV', 'northamerica-northeast1-gcp')
+                
+                embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+
+          </code>
+        </pre>
+            <p>
+                <img src="{{ url_for('static', filename='images/architecture.png') }}">
+            </p>
+            <a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                    style="width: 2%; height: auto;"></a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div id="slide5" class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="align-right">Slide 5</h6>
+            <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                        src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            <h5 class="card-title">DCOUMENT LOADING</h5>
+            <p class="card-text">Document loading is discussed in detail in this section</p>
+            <pre class="language-python"><code>
+                pinecone.init(
+                    api_key = PINECONE_API_KEY,
+                    environment=PINECONE_API_ENV
+                )
+                index_name = "datascience-book"
+                
+                docsearch = Pinecone.from_texts([t.page_content for t in texts], embeddings, index_name=index_name)
+
+          </code>
+        </pre>
+            <p>
+                <img src="{{ url_for('static', filename='images/architecture.png') }}">
+            </p>
+            <a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                    style="width: 2%; height: auto;"></a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div id="slide6" class="container">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="align-right">Slide 6</h6>
+            <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                        src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            <h5 class="card-title">DCOUMENT LOADING</h5>
+            <p class="card-text">Document loading is discussed in detail in this section</p>
+            <pre class="language-python"><code>
+                query = "What are examples of good data science teams ?"
+                docs = docsearch.similarity_search(query)
+                
+                # Here's an example of the first document that was returned 
+                print(docs[0].page_content[:450])
+                
+                #Query those docs to get your answer back 
+                
+                from langchain.llms import OpenAI
+                from langchain.chains.question_answering import load_qa_chain
+                
+                llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
+                chain = load_qa_chain(llm, chain_type="stuff")
+                
+                query= "what is the collect stage of data maturity ?"
+                docs = docsearch.similarity_search(query)
+                answer = chain.run(input_documents=docs, question=query)
+                
+                print(f"Question:{query}")
+                print(f"Answer:{answer}")
+          </code>
+        </pre>
+            <p>
+                <img src="{{ url_for('static', filename='images/architecture.png') }}">
+            </p>
+            <a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                    style="width: 2%; height: auto;"></a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<script>
+    // Initialize Prism syntax highlighter
+    Prism.highlightAll();
+</script>
+
 {% endblock %}

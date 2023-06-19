@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h1 style="font-family: 'Roboto', sans-serif;">Voice Technology from AI</h1>
+    <div id="slide1" class="container">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="align-right">Slide 1</h6>
+                <p class="align-right"><a href="{{ url_for('gpt') }}"><img
+                            src="{{ url_for('static', filename='images/home_logo.png') }}"
+                            style="width: 2%; height: auto;"></a></p>
+                <h5 class="card-title">SYSTEM ARCHITECTURE</h5>
+                <p class="card-text" >
+                    This is the Voice box technology which is coming form Facebook (Meta AI). 
+                    its a text to speech model 
+                    <p>
+                    <ol>
+                        <li><b>Generate Voice</b>: with minimal voice input of 2 seconds we can generate the voice for any text </li>
+                        <li><b>Style Transfer</b>: We can use the voice style from an audio and generate the new audio 
+                        it can generate the natural voice based on the new input text </li>
+                        <li><b>Audio erasing:</b> You can remove any back ground noice </li>
+                        <br>
+                        <li><b>Examples</b> are mentioned in this  </li>
+
+                    </ol>
+                </p>
+                    <div><p>This can be best tool for the Voice Dubbing technology</p></div>
+
+
+
+                </p>
+                <br>
+                <br>
+                <p><a href="{{ url_for('gpt') }}"><img src="{{ url_for('static', filename='images/home_logo.png') }}"
+                        style="width: 2%; height: auto;"></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
