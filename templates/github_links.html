@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Link</th>
+        <th scope="col">Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>LLM Transparency Index</td>
+        <td><a href="https://github.com/stanford-crfm/TransparencyIndex">Link</a></td>
+        <td>Gives the transparency of the LLM models</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+  <h1> MOSIAC </h1>
+  <h2> MPT-30B-Chat</h2>
+  MPT-30B-Chat is the Chatbot-like model for dialouge generation. It was built by fine tuning MPT-30B on the
+  <ol>
+    <li><a href="https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered">ShareGPT-Vicuna</a></li>
+    <li><a href="https://huggingface.co/camel-ai">Camel-AI</a></li>
+    <li><a href="https://github.com/teknium1/GPTeacher">GPTeacher</a></li>
+    <li><a href="https://huggingface.co/datasets/timdettmers/openassistant-guanaco">Guanaco</a></li>
+    <li><a href="https://github.com/project-baize/baize-chatbot">Baize</a></li>
+    <li>some generated datasets</li>
+  </ol>
+
+  <p>
+    License: (Non-Commercial Use only)
+    <a href="https://huggingface.co/spaces/mosaicml/mpt-30b-chat">Demo on Hugging Face Spaces</a>
+  </p>
+  <p>
+    This model was trained by <a href="https://mosaicml.com">MosiacML</a> and followsf a modified decoder-only transformer architecture 
+  </p>
+
+  <h3>Model Date</h3>
+  <p>June 22, 2023</p>
+
+  <h3>Model License</h3>
+  <p>Non Commercial Use Only </p>
+
+  <h3>Documentation</h3>
+  <p>
+    <ol>
+      <li><a href="https://mosaicml.com/blog/mpt-30b">Blog post: Raising the bar for open-source foundation models</a> </li>
+      <li><a href="https://github.com/mosiacml/llm-foundary/">Code base(mosiacml/llm-foundaryrepo</a></li>
+      <li>For any questions feel free to contact us via the <a href="https://mosaicml-community.slack.com/join/shared_invite/zt-1vztur6kg-E9nsEEuo6nF_rPTgB1Br7g#/shared-invite/email">MosaicML Community Slack</a></li>
+    </ol>
+  </p>
+  
+  
+</div>
+{% endblock%}
