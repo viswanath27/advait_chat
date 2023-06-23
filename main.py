@@ -27,6 +27,11 @@ def gpt():
     print("Hit GPT route..")
     return render_template("gpt.html")
 
+@app.route("/mosiac")
+def mosiac():
+    print("Hit the mosiac route")
+    return render_template("mosiac.html")
+
 @app.route("/files/", methods=["POST"])
 def create_file():
     print("Created the files....")
@@ -141,6 +146,10 @@ def my_function():
 @app.route("/voice")
 def voice():
     return render_template("voice.html")
+
+@app.route("/github_links")
+def github_links():
+    return render_template("github_links.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
