@@ -42,6 +42,20 @@ li a {
 li a:hover {
     background-color: #111;
 }*/
+  
+    .code-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .copy-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+    
+
 .bg-custom {
     background-color: #CE33FF;
 }

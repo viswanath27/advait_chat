@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 
 {% block content %}
@@ -37,7 +38,137 @@
       <li>For any questions feel free to contact us via the <a href="https://mosaicml-community.slack.com/join/shared_invite/zt-1vztur6kg-E9nsEEuo6nF_rPTgB1Br7g#/shared-invite/email">MosaicML Community Slack</a></li>
     </ol>
   </p>
-  
-  
+  <p>
+    <h4>Example Dialogue</h4>
+    <h6>kreenivasan:</h6>
+   <p> <i>"I want you to come up with a tweet based on this summary of the article</i></p>
+  <p><i>We are excited to extend the MosaicML Foundation Series with MPT-30B, a new commercially licensed open-source model that is significantly more powerful, and outperforms the original GPT-3. In addtion, we are releasing two fine-tuned models, MPT-30B-Instruct and MPT-30B-Chat, that are built on top of MPT-30B and excel at short-form instruction following and multi-turn conversations, respsectively. All MPT-30B models come with speacial features that differentiate them from other LLMs, including an 8k token context window (which can be further extended via finetunin; see MPT-7B-StoryWriter), support for context-length extrapolation via ALiBi, and efficient inference+training performance via FlashAttention. It also has strong coding abilities thanks to its pretraining data mixture"</i></p>
+  </p>
+  <p>
+    <h6><b>MPT-30B-Chat</b></h6>
+    <p><i>""Revolutionize your AI Capabilities with MosaicML's latest addition, MPT-30B! Outperforming GPT-3, this opens-source model is significanly more powerful and comes with finely-tuned models for exceptional instruction following and multi-turn conversations. Unleash the potential of an 8K token context window, ALiBi support, and FlashAttention. Experience the future of AI with MosaicML! #AI #ML #innovation""</i></p>
+    </p>
+  <p>
+  <p><h6>ksreenivasan:</h6></p>
+  <p><i>"Is there anything you want to say to MosaicML about this
+      exciting news?"</i></p>
+  <p><h6>MPT-30B-Chatx</h6></p>
+  <p><i>"As your AI marketing assistant, I would say that this is
+  truly exciting news for the AI community! MosaicML's latest
+  addition, MPT-30B, is poised to revolutionize the industry with its
+  powerful opensource capabilities and finely-tuned models for
+  instruction following and multi-turn conversations. The special
+  features, including the 8k token conext window, ALiBi support, and
+  FlashAttention, are sure to set MosaicML's MPT-30B apart from other
+  LLMs. Congratulations to the MosiacML team on this incredible
+  achievement!"</i></p>
+  </p>
+  <p><i></i></p>
+
+  <p><h6>How to Use</h6></p>
+  <p>This model is best used with the MosaicML ll-foundary repository
+    for training and finetuning. </p>
+  <pre class='language-python'><code>
+      import transoformers
+      model = transformers.AutoModelForCausalLM.from_pretrained(
+      'mosaicml/mpt-30b-chat',
+      trust_remote_code=True
+      )
+  </code></pre>
+
+  <p>For a GPU based implementation we can use below code </p>
+  <pre class='language-python'><code>
+      import torch
+      import transformers
+
+      name = 'mosaicml/mpt-30b-chat'
+
+      config = transformers.AutoConfig.from_pretrained(name,
+      trust_remote_code=True)
+      config.attn_config['attn_impl'] = 'triton'
+      config.init_device = 'cuda:0'
+
+      model = transformers.AutoModelForCausalLM.from_pretrained(
+      name,
+      config=config
+      torch_dtype=torch.bfloat16,
+      trust_remote_code=True
+      )
+      </pre></code>
+
+  <p>Supposing if user needs needs to increase the sequence lengths to
+    larger values below is the code</p>
+
+  <pre class='language-python'><code>
+      import transformers
+
+      name = 'moasiacml/mpt-30b-chat'
+
+      config = transformers.AutoConfig.from_pretrained(name,
+      trusted_remote_code=True)
+      config.max_seq_len = 16384
+
+      model = transformers.AutoModelForCausalLM.from_pretrained(
+      name,
+      config=config,
+      trust_remote_code=True
+      )
+  </code></pre>
+  <p>This model was trained with MPT-30B tokenizer which is based on
+  the EleutherAI/gpt-neox-20b toekenizer and inculdes additional
+  padding and eos tokens. <p>
+
+    <pre class='language-python'><code>
+	from transformers import AutoTokenizer
+	tokenizer = AutoTokenizer.from_pretrained('mosaicml/mpt-30b')
+	
+	</code></pre>
+
+  <p>This can be used in text generation pipeline 
+  </p>
+
+  <pre class='language-python'><code class="code-container" onclick="copyCode(this)">
+      from transformers import pipeline
+
+      with torch.autocast('cuda', dtype=torch.bfloat16):
+          inputs = tokenizer('Here is a recipe for vegan banana
+          bread:\n', return_tensors="pt").to('cuda')
+          outputs = model.generate(**inputs, max_new_tokens=100)
+          print(tokenizer.batch_decode(outputs, skips_special_tokens=True)
+
+      pipe = pipeline('text-generation', model=model,
+      tokenizer=tokenizer, device='cuda:0')
+      with torch.autocast('cuda', dtype=torch.bfloat16):
+          print(
+               pipe('Here is a recipe for vegan banana bread:\n',
+               max_new_tokens=100,
+               do_sample=True,
+               use_cache=True))
+  </code></pre>
+  <span class="copy-icon" title="Copy">&#x2398;</span>
+
+<script>
+    function copyCode(element) {
+      var codeText = element.innerText;
+
+      // Create a temporary textarea element
+      var tempTextarea = document.createElement("textarea");
+      tempTextarea.value = codeText;
+
+      // Append the textarea to the document
+      document.body.appendChild(tempTextarea);
+
+      // Copy the text from the textarea to the clipboard
+      tempTextarea.select();
+      document.execCommand("copy");
+
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextarea);
+
+      // Alert or perform any desired action to indicate successful copy
+      alert("Code copied to clipboard!");
+    }
+  </script>
+    
 </div>
 {% endblock%}
