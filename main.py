@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify,redirect
 #Create Embeddings of your documents to get ready for semantic search 
 from langchain.vectorstores import Chroma, Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings 
@@ -10,7 +10,7 @@ from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
 import pinecone 
 import os
-
+from db import get_db_connection
 app = Flask(__name__)
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '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')
 PINECONE_API_KEY = os.environ.get('PINECONE_API_KEY', '0b0244fc-fee8-43c0-8f6a-ec6bad3b2dcc')
@@ -18,9 +18,30 @@ PINECONE_API_ENV = os.environ.get('PINECONE_API_ENV', 'northamerica-northeast1-g
 docsearch = None
 
 
+# Route for the login page
 @app.route("/")
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Add your authentication logic here
+        if username == 'admin' and password == 'password':
+            return redirect('/home')  # Redirect to the dashboard page on successful login
+        else:
+            error = 'Invalid credentials. Please try again.'
+            return render_template('login.html', error=error)
+
+    return render_template('login.html')
+
+@app.route("/home")
 def index():
-    return render_template("index.html")
+    conn = get_db_connection()
+    cursor = conn.execute('SELECT * FROM session_data')
+    rows = cursor.fetchall()
+    conn.close()
+    return render_template("index.html", rows=rows)
 
 @app.route("/gpt")
 def gpt():
@@ -149,7 +170,11 @@ def voice():
 
 @app.route("/github_links")
 def github_links():
-    return render_template("github_links.html")
+    conn = get_db_connection()
+    cursor = conn.execute('SELECT * FROM github_link')
+    git_rows = cursor.fetchall()
+    conn.close()
+    return render_template("github_links.html", git_rows=git_rows)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000,debug=True)

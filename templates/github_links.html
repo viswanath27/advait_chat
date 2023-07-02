@@ -2,35 +2,33 @@
 {% block content %}
 
 <div class="container">
+  <br>
+  <p>
+    Large Langauge model <a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard">Leader Board</a>
+  </p>
 
-
+<br>
 <table class="table table-bordered">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
-        <th scope="col">Link</th>
+        <th scope="col">Try Link</th>
+        <th scope="col">Paper Link</th>
         <th scope="col">Comments</th>
+
       </tr>
     </thead>
     <tbody>
+      {% for row in git_rows %}
       <tr>
-        <th scope="row">1</th>
-        <td>LLM Transparency Index</td>
-        <td><a href="https://github.com/stanford-crfm/TransparencyIndex">Link</a></td>
-        <td>Gives the transparency of the LLM models</td>
+        <td>{{row['Id']}}</td>
+        <td><a href="{{row['Link']}}"><b>{{row['Title']}}</b></a></td>
+        <td width="100px" ><a href="{{row['TryLink']}}">Try Link</a></td>
+        <td width="100px"><a href="{{row['PaperLink']}}">Paper Link</a></td>
+        <td>{{row['Comments']}}</td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>

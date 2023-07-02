@@ -28,6 +28,22 @@
             </div>
         </div>
     </nav>
+    <div class="sidenav">
+        {% for row in rows %}
+        <ul>
+            <li style="color: white;">{{row['history']}}</li>
+        </ul>
+        <!-- <tr>
+            <td>{{ row['id'] }}</td>
+            <td>{{ row['name'] }}</td>
+            <td>{{ row['history'] }}</td>
+        </tr> -->
+        {% endfor %}
+        <!-- <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a> -->
+      </div>
     {% block content %}
     {% endblock content %}
 
