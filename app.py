@@ -177,4 +177,4 @@ def github_links():
     return render_template("github_links.html", git_rows=git_rows)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000,debug=True)
+    app.run()
