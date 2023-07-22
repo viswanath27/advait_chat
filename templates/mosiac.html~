@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+  <h1> MOSIAC </h1>
+  <h2> MPT-30B-Chat</h2>
+  MPT-30B-Chat is the Chatbot-like model for dialouge generation. It was built by fine tuning MPT-30B on the
+  <ol>
+    <li><a href="https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered">ShareGPT-Vicuna</a></li>
+    <li><a href="></a>Camel-AI</li>
+    <li>GPTeacher</li>
+    <li>Cuanaco</li>
+    <li>Baize</li>
+    <li>some generated datasets</li>
+  </ol>
+  
+
+  License: (Non-Commercial Use only)
+  Demo on Hugging Face Spaces
+  
+</div>
+{% endblock%}
